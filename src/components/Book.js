@@ -6,7 +6,7 @@ const Book = ({
   id = '',
   authors = [],
   imageLinks = {},
-  shelf = '',
+  shelf = 'none',
   handleShelfChange = () => {},
 }) => {
   return (

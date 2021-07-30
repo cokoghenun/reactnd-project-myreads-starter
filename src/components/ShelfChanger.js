@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ShelfChanger = ({ shelf = '', handleShelfChange = () => {} }) => {
+const ShelfChanger = ({ shelf, handleShelfChange }) => {
   const [value, setValue] = useState(shelf);
 
   const handleChange = ({ target }) => {

@@ -1,42 +1,31 @@
-import React, { useState } from 'react';
-import { search, update } from '../BooksAPI';
+import React, { useEffect, useState } from 'react';
+import { search } from '../BooksAPI';
 
 import { Link } from 'react-router-dom';
 import Book from '../components/Book';
 
-const Search = () => {
-  const [books, setBooks] = useState([]);
+const Search = ({ books, handleShelfChange }) => {
+  const [searchResults, setSearchResults] = useState([]);
   const [searchTxt, setSearchTxt] = useState('');
 
-  const handleShelfChange = async ({ b, s }) => {
-    setBooks(
-      books.map((i) => {
-        if (i.id === b.id) i.shelf = s;
-        return i;
-      })
-    );
-    await update(b, s);
-  };
-
-  const handleSearchChange = async ({ target: { value } }) => {
-    setSearchTxt(value);
-    // console.log(value);
-    if (value) {
-      const res = await search(value);
-      if (res?.length) {
-        console.log(res);
-        setBooks(res);
-      } else {
-        setBooks([]);
+  useEffect(() => {
+    const throttle = setTimeout(async () => {
+      setSearchResults([]);
+      if (searchTxt) {
+        const res = await search(searchTxt);
+        if (res?.length) {
+          setSearchResults(
+            res.map((r) => {
+              r.shelf = books.find((b) => b.id === r.id)?.shelf;
+              return r;
+            })
+          );
+        }
       }
-    } else {
-      setBooks([]);
-    }
-  };
+    }, 1000);
 
-  // useState(() => {
-  //   console.log(searchTxt);
-  // }, [searchTxt]);
+    return () => clearTimeout(throttle);
+  }, [books, searchTxt]);
 
   return (
     <div className='search-books'>
@@ -57,13 +46,13 @@ const Search = () => {
             type='text'
             placeholder='Search by title or author'
             value={searchTxt}
-            onChange={handleSearchChange}
+            onChange={({ target }) => setSearchTxt(target.value)}
           />
         </div>
       </div>
       <div className='search-books-results'>
         <ol className='books-grid'>
-          {books.map((b, i) => (
+          {searchResults.map((b, i) => (
             <li key={'c' + i}>
               <Book {...b} handleShelfChange={handleShelfChange} />
             </li>

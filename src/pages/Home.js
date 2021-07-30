@@ -1,26 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAll, update } from '../BooksAPI';
 import Book from '../components/Book';
 
-const Home = () => {
-  const [books, setBooks] = useState([]);
-
-  const handleShelfChange = async ({ b, s }) => {
-    setBooks(
-      books.map((i) => {
-        if (i.id === b.id) i.shelf = s;
-        return i;
-      })
-    );
-    await update(b, s);
-  };
-
-  useEffect(() => {
-    (async () => {
-      setBooks(await getAll());
-    })();
-  }, []);
+const Home = ({ books, handleShelfChange }) => {
   return (
     <div className='list-books'>
       <div className='list-books-title'>
