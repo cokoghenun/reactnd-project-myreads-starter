@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const ShelfChanger = ({shelf=''}) => {
+const ShelfChanger = ({ shelf = '', handleShelfChange = () => {} }) => {
+  const [value, setValue] = useState(shelf);
+
+  const handleChange = ({ target }) => {
+    setValue(target.value);
+    handleShelfChange(target.value);
+  };
+
   return (
     <div className='book-shelf-changer'>
-      <select defaultValue={shelf}>
+      <select defaultValue={value} onChange={handleChange}>
         <option value='move' disabled>
           Move to...
         </option>

@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAll } from '../BooksAPI';
+import { getAll, update } from '../BooksAPI';
 import Book from '../components/Book';
 
 const HomePage = () => {
   const [books, setBooks] = useState([]);
 
+  const handleShelfChange = async ({ b, s }) => {
+    setBooks(
+      books.map((i) => {
+        if (i.id === b.id) i.shelf = s;
+        return i;
+      })
+    );
+    await update(b, s);
+  };
+
   useEffect(() => {
     (async () => {
-      const res = await getAll();
-      console.log(res);
-      setBooks(res);
+      setBooks(await getAll());
     })();
   }, []);
   return (
@@ -27,8 +35,8 @@ const HomePage = () => {
                 {books
                   .filter((b) => b.shelf === 'currentlyReading')
                   .map((b, i) => (
-                    <li key={'c'+i}>
-                      <Book {...b} />
+                    <li key={'c' + i}>
+                      <Book {...b} handleShelfChange={handleShelfChange} />
                     </li>
                   ))}
               </ol>
@@ -41,8 +49,8 @@ const HomePage = () => {
                 {books
                   .filter((b) => b.shelf === 'wantToRead')
                   .map((b, i) => (
-                    <li key={'w'+i}>
-                      <Book {...b} />
+                    <li key={'w' + i}>
+                      <Book {...b} handleShelfChange={handleShelfChange} />
                     </li>
                   ))}
               </ol>
@@ -55,8 +63,8 @@ const HomePage = () => {
                 {books
                   .filter((b) => b.shelf === 'read')
                   .map((b, i) => (
-                    <li key={'r'+i}>
-                      <Book {...b} />
+                    <li key={'r' + i}>
+                      <Book {...b} handleShelfChange={handleShelfChange} />
                     </li>
                   ))}
               </ol>
