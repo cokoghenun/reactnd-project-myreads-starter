@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAll, update } from '../BooksAPI';
 import Book from '../components/Book';
 
-const HomePage = () => {
+const Home = () => {
   const [books, setBooks] = useState([]);
 
   const handleShelfChange = async ({ b, s }) => {
@@ -81,4 +81,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
