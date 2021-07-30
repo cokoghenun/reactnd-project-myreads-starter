@@ -1,6 +1,7 @@
 import React from 'react';
+import ShelfChanger from './ShelfChanger';
 
-const Book = ({title='', authors=[], imageLinks={}}) => {
+const Book = ({title='', authors=[], imageLinks={}, shelf=""}) => {
   return (
     <div className='book'>
       <div className='book-top'>
@@ -13,17 +14,8 @@ const Book = ({title='', authors=[], imageLinks={}}) => {
               `url("${imageLinks.smallThumbnail}")`,
           }}
         />
-        <div className='book-shelf-changer'>
-          <select>
-            <option value='move' disabled>
-              Move to...
-            </option>
-            <option value='currentlyReading'>Currently Reading</option>
-            <option value='wantToRead'>Want to Read</option>
-            <option value='read'>Read</option>
-            <option value='none'>None</option>
-          </select>
-        </div>
+        
+        <ShelfChanger  shelf={shelf}/>
       </div>
       <div className='book-title'>{title}</div>
       <div className='book-authors'>{authors.join(', ')}</div>

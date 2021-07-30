@@ -26,8 +26,8 @@ const HomePage = () => {
               <ol className='books-grid'>
                 {books
                   .filter((b) => b.shelf === 'currentlyReading')
-                  .map((b) => (
-                    <li>
+                  .map((b, i) => (
+                    <li key={'c'+i}>
                       <Book {...b} />
                     </li>
                   ))}
@@ -40,8 +40,8 @@ const HomePage = () => {
               <ol className='books-grid'>
                 {books
                   .filter((b) => b.shelf === 'wantToRead')
-                  .map((b) => (
-                    <li>
+                  .map((b, i) => (
+                    <li key={'w'+i}>
                       <Book {...b} />
                     </li>
                   ))}
@@ -54,8 +54,8 @@ const HomePage = () => {
               <ol className='books-grid'>
                 {books
                   .filter((b) => b.shelf === 'read')
-                  .map((b) => (
-                    <li>
+                  .map((b, i) => (
+                    <li key={'r'+i}>
                       <Book {...b} />
                     </li>
                   ))}
