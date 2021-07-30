@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import * as BooksAPI from './BooksAPI'
-import { getAll, update } from './BooksAPI';
 import './App.css';
 import Home from './pages/Home';
 import Search from './pages/Search';
+import { getAll, update } from './BooksAPI';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -35,14 +34,12 @@ const App = () => {
           <Route exact path='/'>
             <Home
               books={books}
-              setBooks={setBooks}
               handleShelfChange={handleShelfChange}
             />
           </Route>
           <Route path='/search'>
             <Search
               books={books}
-              setBooks={setBooks}
               handleShelfChange={handleShelfChange}
             />
           </Route>

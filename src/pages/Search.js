@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { search } from '../BooksAPI';
-
-import { Link } from 'react-router-dom';
 import Book from '../components/Book';
+import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 const Search = ({ books, handleShelfChange }) => {
   const [searchResults, setSearchResults] = useState([]);
